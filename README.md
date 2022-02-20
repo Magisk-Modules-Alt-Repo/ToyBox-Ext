@@ -1,10 +1,11 @@
 # ToyBox
 
 ### Description
-Systemless ToyBox toybox-armv7m from:
+Systemless ToyBox Magisk module using toybox-armv7m from:
 https://github.com/landley/toybox
 
-May not work yet on all platforms.
+May not work on all platforms yet.
+
 WORK IN PROGRESS
 
 #### Source 
