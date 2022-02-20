@@ -4,6 +4,8 @@
 Systemless ToyBox Magisk module using toybox-armv7m from:
 https://github.com/landley/toybox
 
+Installing the missing toybox appletts.
+
 May not work on all platforms yet.
 
 WORK IN PROGRESS
