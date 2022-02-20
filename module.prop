@@ -1,6 +1,7 @@
 id=ToyBox
 name=ToyBox
 version=0.9.9
-versionCode=99
+versionCode=099
 author=zgfg @ xda
 description=Install (remaining) toybox applets. For completeness, make sure you have BusyBox installed. WORK IN PROGRESS
+updateJson=https://raw.githubusercontent.com/zgfg/ToyBox/main/update.json
