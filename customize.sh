@@ -4,17 +4,25 @@
 # System XBIN path
 XBINDIR=/system/xbin
 
+# Local XBIN and (or) BIN paths for mounting
+TBXBINDIR=$MODPATH$XBINDIR
+TBBINDIR=$MODPATH/system/bin
+
 # Use local XBIN path if System XBIN path exists, otherwise use local BIN path
 if [ -d $XBINDIR ]
 then
-  TBDIR=$MODPATH$XBINDIR
+  TBDIR=$TBXBINDIR
 else
-  TBDIR=$MODPATH/system/bin
+  TBDIR=$TBBINDIR
 fi
-mkdir -p $TBDIR
-cd $TBDIR
+
+# Clean-up local XBIN and BIN paths
+rm -rf $TBXBINDIR
+rm -rf $TBBINDIR
 
 # Install toybox binary
+mkdir -p $TBDIR
+cd $TBDIR
 TBBIN=toybox-armv7m
 mv $MODPATH/$TBBIN .
 chmod 755 $TBBIN

@@ -4,4 +4,4 @@ version=0.9.9
 versionCode=099
 author=zgfg @ xda
 description=Install (remaining) toybox applets. For completeness, make sure you have BusyBox installed. WORK IN PROGRESS
-updateJson=https://raw.githubusercontent.com/zgfg/ToyBo-Ext/main/update.json
+updateJson=https://raw.githubusercontent.com/zgfg/ToyBox-Ext/main/update.json
