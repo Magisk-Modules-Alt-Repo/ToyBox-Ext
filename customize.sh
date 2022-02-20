@@ -28,7 +28,7 @@ fi
 
 #  Create symlinks for toybox applets
 Applets=$(./$TBBIN)
-echo $Applets
+#echo $Applets
 for Applet in $Applets
 do
   # Skip if applet already found in the path
