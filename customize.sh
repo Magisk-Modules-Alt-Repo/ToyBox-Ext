@@ -12,5 +12,7 @@ then
   echo
   echo ERROR: Not supported platform!
   echo
+  getprop | grep 'cpu\.abi'
+  echo
   exit -1
 fi
