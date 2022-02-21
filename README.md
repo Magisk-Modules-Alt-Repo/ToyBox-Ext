@@ -6,9 +6,7 @@ https://github.com/landley/toybox
 
 Installing the missing toybox applets.
 
-May not work on all platforms yet.
-
-WORK IN PROGRESS
+SUPPORTED: ARMv7 and higher 
 
 #### Source 
 
