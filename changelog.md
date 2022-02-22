@@ -1,6 +1,6 @@
 #### v1.0.0
 
-Find the most suitable toybox binary for ARMv7 or higher
+Find the most suitable ARMv7 or higher toybox binary
 
 #### v0.9.9
 
