@@ -23,7 +23,7 @@ rm -rf $TBBINDIR
 # Install toybox binary
 mkdir -p $TBDIR
 cd $TBDIR
-TBBIN=toybox-armv7m
+TBBIN=toybox-ext
 cp $MODDIR/$TBBIN .
 chmod 755 $TBBIN
 Applet=toybox

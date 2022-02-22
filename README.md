@@ -2,7 +2,7 @@
 
 ### Description
 Systemless Magisk module
-to install (additional) ToyBox applets, using toybox-armv7m binary from:
+to install (additional) ToyBox applets, using ARMv7 or higher binaries from:
 https://github.com/landley/toybox
 
 SUPPORTED: ARMv7 and higher 
