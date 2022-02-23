@@ -1,8 +1,17 @@
 # Module's own path (local path)
 cd $MODPATH
 
+# Install to System XBIN if the path exists, otherwise to System BIN path
+XBINDIR=/system/xbin
+if [ -d $XBINDIR ]
+then
+  TBDIR=$XBINDIR
+else
+  TBDIR=/system/bin
+fi
+
 # toybox ARMv7 and higher binaries
-TBBinList="
+TBBINList="
 toybox-aarch64
 toybox-armv7m
 toybox-armv7l
@@ -10,31 +19,31 @@ toybox-armv7l
 
 # Find the suitable binary
 TBFound=""
-for TBBin in $TBBinList
+for TBBIN in $TBBINList
 do
-  if  [ -z $TBFound ]
+  if [ -z $TBFound ]
   then
-    chmod 755 $TBBin
+    chmod 755 $TBBIN
 
     # Test if binary executing 
-    Applets=$(./$TBBin)
+    Applets=$(./$TBBIN)
 #    echo $Applets
 
-    if  [ ! -z "$Applets" ]
+    if [ ! -z "$Applets" ]
     then
       # Suitable binary found
-      echo "Installing $TBBin binary"
+      echo "Installing $TBBIN binary and applets to $TBDIR"
       TBFound=true
-      mv $TBBin toybox-ext
+      mv $TBBIN toybox-ext
       continue
     fi
   fi
 
   # Delete binary (already found or not executing)
-  rm -f $TBBin
+  rm -f $TBBIN
 done
 
-if  [ -z $TBFound ]
+if [ -z $TBFound ]
 then
   # Suitable binary not found
   echo
