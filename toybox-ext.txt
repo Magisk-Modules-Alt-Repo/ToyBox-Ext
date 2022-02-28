@@ -1,4 +1,4 @@
-*** stock toybox
+*** toybox
 acpi 
 base64 
 basename 
@@ -171,9 +171,8 @@ xargs
 xxd 
 yes 
 zcat 
-toybox
 
-***toybox-ext
+*** toybox-ext
 bash 
 catv 
 count 
@@ -197,9 +196,8 @@ toysh
 unicode 
 w 
 who 
-toybox-ext
 
-***toybox-ext & busybox - common
+*** toybox-ext (common with busybox)
 [ 
 arch 
 ascii 
@@ -236,7 +234,7 @@ tunctl
 vconfig 
 watchdog 
 
-*** stock toybox_vendor
+*** toybox_vendor
 acpi 	
 base64 
 basename 
@@ -409,6 +407,5 @@ xargs
 xxd 
 yes 
 zcat 
-toybox_vendor
 
 
