@@ -1,3 +1,7 @@
+#### v1.0.2
+
+Install additional stock toybox applets if found
+
 #### v1.0.1
 
 Alt Repository release
