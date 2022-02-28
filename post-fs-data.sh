@@ -46,7 +46,7 @@ do
   fi
 done
 
- Remove toybox-stock if no symlinks created
+# Remove toybox-stock if no symlinks created
 if [ "$Count" -le 0 ]
 then
   rm $TBBIN
