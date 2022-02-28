@@ -19,24 +19,22 @@ fi
 # Clean-up local XBIN and BIN paths
 rm -rf $TBXBINDIR
 rm -rf $TBBINDIR
-
-# Install toybox binary
 mkdir -p $TBDIR
 cd $TBDIR
-TBBIN=toybox-ext
-cp $MODDIR/$TBBIN .
-chmod 755 $TBBIN
-Applet=toybox
-#  Create toybox symlink if toybox not already found in the path
-Check=$(which $Applet)
-if [ -z "$Check" ]
+TB=toybox
+
+# Install toybox-stock binary if found in the path
+TBBIN=toybox-stock
+TBSTOCK=$(which $TB)
+if [ ! -z "$TBSTOCK" ]
 then
-  ln -s $TBBIN $Applet
+  cp $TBSTOCK $TBBIN
+  chmod 755 $TBBIN
+  Applets=$(./$TBBIN)
 fi
 
-#  Create symlinks for toybox applets
-Applets=$(./$TBBIN)
-#echo $Applets
+# Create symlinks for toybox-stock applets
+$Count=0
 for Applet in $Applets
 do
   # Skip if applet already found in the path
@@ -44,5 +42,38 @@ do
   if [ -z "$Check" ]
   then
     ln -s $TBBIN $Applet
+    $Count=$((Count++))
   fi
 done
+
+ Remove toybox-stock if no symlinks created
+if [ "$Count" -le 0 ]
+then
+  rm $TBBIN
+fi
+
+# Install toybox-ext binary
+TBBIN=toybox-ext
+cp $MODDIR/$TBBIN $TBBIN
+chmod 755 $TBBIN
+Applets=$(./$TBBIN) 
+Applets=$Applets $TB
+
+# Create symlinks for toybox-ext applets
+$Count=0
+for Applet in $Applets
+do
+  # Skip if applet already found in the path
+  Check=$(which $Applet)
+  if [ -z "$Check" ]
+  then
+    ln -s $TBBIN $Applet
+    $Count=$((Count++))
+  fi
+done
+
+# Remove toybox-ext if no symlinks created
+if [ "$Count" -le 0 ]
+then
+  rm $TBBIN
+fi
