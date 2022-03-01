@@ -9,8 +9,8 @@ https://github.com/landley/toybox
 
 ##### TEST
 
-Ussually, **ToyBox** comes preinstalled to `/system/bin`, but with the limited number of **applets**.
-The module installes additional `toybox-ext` binary, with the additional applets (symlinked to `toybox-ext`).
+Ussually, **ToyBox** comes preinstalled to `/system/bin`, but with limited number of **applets**.
+The module installes additional `toybox-ext` binary, with the additional applets.
 
 Install the module and reboot. Use **Terminal Emulator** - **Toybox applets** are for Terminal and **shell scripts**.
 Make sure that `/system/bin` and `/system/xbin` (the latter might not available for some phones) are in the `PATH`.
@@ -32,14 +32,13 @@ whereas if the toybox-ext path was `/system/bin` then use:
 ```
 ls -l /system/bin | grep toybox-ext
 ```
-The command will show you all the toybox-ext applets as installed (symlinked to the toybox-ext binary).
-Usually, `whois` will be one of them, hence you can try:
+The command will show all toybox-ext applets as installed (symlinked to the toybox-ext binary).
+Usually, `w` will be one of them, hence you can try:
 ```
 w
 ```
 **Note**: Some applets are common to **BusyBox** and **ToyBox**, e.g. `ascii`.
-Hence, if you also have the `busybox` installed, `toybox-ext` will symlink the less number of (additional) applets.
-
+Hence, if you have also the `busybox` installed, `toybox-ext` will symlink less number of (additional) applets.
 
 #### Source 
 
