@@ -28,10 +28,12 @@ If the responded toybox-ext path was `/system/xbin` then check:
 ```
 ls -l /system/xbin | grep toybox-ext
 ```
+
 whereas if the toybox-ext path was `/system/bin` then use:
 ```
 ls -l /system/bin | grep toybox-ext
 ```
+
 The command will show all toybox-ext applets as installed (symlinked to the toybox-ext binary).
 Usually, `w` will be one of them, hence you can try:
 ```
@@ -39,6 +41,7 @@ w
 ```
 **Note**: Some applets are common to **BusyBox** and **ToyBox**, e.g. `ascii`.
 Hence, if you have also the `busybox` installed, `toybox-ext` will symlink less number of (additional) applets.
+
 
 #### Source 
 
