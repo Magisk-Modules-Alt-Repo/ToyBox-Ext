@@ -5,7 +5,41 @@ Systemless Magisk module
 to install (additional) ToyBox applets, using ARMv7 or higher binaries from:
 https://github.com/landley/toybox
 
-SUPPORTED: ARMv7 and higher 
+**Supported**: ARMv7 and higher 
+
+##### TEST
+
+Ussually, **ToyBox** comes preinstalled to `/system/bin`, but with the limited number of **applets**.
+The module installes additional `toybox-ext` binary, with the additional applets (symlinked to `toybox-ext`).
+
+Install the module and reboot. Use **Terminal Emulator** - **Toybox applets** are for Terminal and **shell scripts**.
+Make sure that `/system/bin` and `/system/xbin` (the latter might not available for some phones) are in the `PATH`.
+Check e.g. with (all commands are **case sensitive**):
+```
+su
+echo $PATH
+```
+Check if `toybox-ext` was properly installed and is it installed to `/system/xbin` or `/system/bin`:
+```
+toybox-ext --help
+which toybox-ext
+```
+If the responded toybox-ext path was `/system/xbin` then check:
+```
+ls -l /system/xbin | grep toybox-ext
+```
+whereas if the toybox-ext path was `/system/bin` then use:
+```
+ls -l /system/bin | grep toybox-ext
+```
+The command will show you all the toybox-ext applets as installed (symlinked to the toybox-ext binary).
+Usually, `whois` will be one of them, hence you can try:
+```
+w
+```
+**Note**: Some applets are common to **BusyBox** and **ToyBox**, e.g. `ascii`.
+Hence, if you also have the `busybox` installed, `toybox-ext` will symlink the less number of (additional) applets.
+
 
 #### Source 
 
