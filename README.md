@@ -15,33 +15,40 @@ The module installes additional `toybox-ext` binary, with the additional applets
 Install the module and reboot. Use **Terminal Emulator** - **Toybox applets** are for Terminal and **shell scripts**.
 Make sure that `/system/bin` and `/system/xbin` (the latter might not available for some phones) are in the `PATH`.
 Check e.g. with (all commands are **case sensitive**):
+
 ```
 su
 echo $PATH
 ```
+
 Check if `toybox-ext` was properly installed and is it installed to `/system/xbin` or `/system/bin`:
+
 ```
 toybox-ext --help
 which toybox-ext
 ```
+
 If the responded toybox-ext path was `/system/xbin` then check:
+
 ```
 ls -l /system/xbin | grep toybox-ext
 ```
 
 whereas if the toybox-ext path was `/system/bin` then use:
+
 ```
 ls -l /system/bin | grep toybox-ext
 ```
 
 The command will show all toybox-ext applets as installed (symlinked to the toybox-ext binary).
 Usually, `w` will be one of them, hence you can try:
+
 ```
 w
 ```
+
 **Note**: Some applets are common to **BusyBox** and **ToyBox**, e.g. `ascii`.
 Hence, if you have also the `busybox` installed, `toybox-ext` will symlink less number of (additional) applets.
-
 
 #### Source 
 
