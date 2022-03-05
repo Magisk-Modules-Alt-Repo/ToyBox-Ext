@@ -14,7 +14,7 @@ The module installes additional `toybox-ext` binary, with the additional applets
 
 **Install** the module and **reboot**. Use **Terminal Emulator** - **Toybox applets** are for Terminal and **shell scripts**.
 
-Make sure that `/system/bin` and `/system/xbin` (the latter might not available for some phones) are in the `PATH`.
+Make sure that `/system/bin` and/or `/system/xbin` (the latter might not be available on some devices) are in the `PATH`.
 Check e.g. with (all commands are **case sensitive**):
 
 ```
