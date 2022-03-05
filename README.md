@@ -52,7 +52,7 @@ w
 
 Hence, if you have also the `busybox` installed, `toybox-ext` will symlink less number of (additional) applets.
 
-**Note 2**: Since ToyBox-Ext **v1.0.2**, the module looks if there are not-symlinked applets available from the preinstalled toybox binary.
+**Note 2**: Since ToyBox-Ext **v1.0.2**, the module also looks if there are not-symlinked applets available from the preinstalled toybox binary.
 
 To check did it find and install them, repeat the above `which` and `ls -l` tests but looking for `toybox-stock` binary instead.
 
