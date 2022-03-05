@@ -56,7 +56,7 @@ Hence, if you have also the `busybox` installed, `toybox-ext` will symlink less 
 
 To check did it find and install them, repeat the above `which` and `ls -l` tests but looking for `toybox-stock` binary instead.
 
-For me, e.g., one of the additionally found applets was `getfattr`.
+For me, the additionally found applets from the pre-installed ToyBox were e.g. `getfattr` and `iotop`.
 
 
 #### Source 
