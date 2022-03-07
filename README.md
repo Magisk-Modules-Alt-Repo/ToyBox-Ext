@@ -1,55 +1,77 @@
-# BuiltIn-BusyBox
+# ToyBox-Ext
 
 ### Description
-Systemless module to install the Magisk built-in **BusyBox** binary and applets (**UNIX/Linux command-line utilities**).
-For more info, see:
-https://github.com/topjohnwu/ndk-busybox
+Systemless Magisk module
+to install (additional) ToyBox applets, using ARMv7 or higher binaries from:
+https://github.com/landley/toybox
 
-**Tip**: For even more interesting applets, install also the **ToyBox-Ext** module:
-https://github.com/Magisk-Modules-Alt-Repo/ToyBox-Ext
+**Supported**: ARMv7 and higher 
 
 ##### TEST
 
-**Install** the module and **reboot**. Use **Terminal Emulator** - **BusyBox applets** are for Terminal and **shell scripts**.
+Ussually, **ToyBox** comes preinstalled to `/system/bin`, but with limited number of **applets**.
+The module installes additional `toybox-ext` binary, with the additional applets.
 
-Make sure that `/system/bin` and `/system/xbin` (the latter might not available on some devices) are in the `PATH`.
+**Install** the module and **reboot**. Use **Terminal Emulator** - **Toybox applets** are for Terminal and **shell scripts**.
+
+Make sure that `/system/bin` and/or `/system/xbin` (the latter might not be available on some devices) are in the `PATH`.
 Check e.g. with (all commands are **case sensitive**):
+
 ```
 su
 echo $PATH
 ```
-Check if `busybox` was properly installed and is it installed to `/system/xbin` or `/system/bin`:
+
+Check if `toybox-ext` was properly installed and is it installed to `/system/xbin` or `/system/bin`:
+
 ```
-busybox --help
-which busybox
+toybox-ext --help
+which toybox-ext
 ```
-If the responded busybox path was `/system/xbin` then check:
+
+If the responded toybox-ext path was `/system/xbin` then check:
+
 ```
-ls -l /system/xbin | grep busybox
+ls -l /system/xbin | grep toybox-ext
 ```
-whereas if the busybox path was `/system/bin` then use:
+
+whereas if the toybox-ext path was `/system/bin` then use:
+
 ```
-ls -l /system/bin | grep busybox
+ls -l /system/bin | grep toybox-ext
 ```
-The command will show you all the busybox applets as installed (symlinked to the busybox binary).
-Usually, `whois` will be one of them, hence you can try:
+
+The command will show all toybox-ext applets as installed (symlinked to the toybox-ext binary).
+Usually, `w` will be one of them, hence you can try:
+
 ```
-whois --help
+w
 ```
+
+**Note 1**: Some applets are common to **BusyBox** and **ToyBox**, e.g. `ascii`.
+
+Hence, if you have also the `busybox` installed, `toybox-ext` will symlink less number of (additional) applets.
+
+**Note 2**: Since ToyBox-Ext **v1.0.2**, the module also looks if there are not-symlinked applets available from the preinstalled toybox binary.
+
+To check did it find and install them, repeat the above `which` and `ls -l` tests but looking for `toybox-stock` binary instead.
+
+For me, the additionally found applets from the pre-installed ToyBox were e.g. `getfattr` and `iotop`.
+
 
 #### Source 
 
-[My Repo:](https://github.com/zgfg/BuiltIn-BusyBox)
+[My Repo:](https://github.com/zgfg/ToyBox-Ext)
 
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/zgfg/BuiltIn-BusyBox?label=Release&style=plastic) ![GitHub Release Date](https://img.shields.io/github/release-date/zgfg/BuiltIn-BusyBox?label=Release%20Date&style=plastic) 
-![GitHub Releases](https://img.shields.io/github/downloads/zgfg/BuiltIn-BusyBox/latest/total?label=Downloads%20%28Latest%20Release%29&style=plastic)
-![GitHub All Releases](https://img.shields.io/github/downloads/zgfg/BuiltIn-BusyBox/total?label=Total%20Downloads%20%28All%20Releases%29&style=plastic)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/zgfg/ToyBox-Ext?label=Release&style=plastic) ![GitHub Release Date](https://img.shields.io/github/release-date/zgfg/ToyBox-Ext?label=Release%20Date&style=plastic) 
+![GitHub Releases](https://img.shields.io/github/downloads/zgfg/ToyBox-Ext/latest/total?label=Downloads%20%28Latest%20Release%29&style=plastic)
+![GitHub All Releases](https://img.shields.io/github/downloads/zgfg/ToyBox-Ext/total?label=Total%20Downloads%20%28All%20Releases%29&style=plastic)
 
-[Alt-Repo:](https://github.com/Magisk-Modules-Alt-Repo/BuiltIn-BusyBox)
+[Alt-Repo:](https://github.com/Magisk-Modules-Alt-Repo/ToyBox-Ext)
 
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/Magisk-Modules-Alt-Repo/BuiltIn-BusyBox?label=Release&style=plastic) ![GitHub Release Date](https://img.shields.io/github/release-date/Magisk-Modules-Alt-Repo/BuiltIn-BusyBox?label=Release%20Date&style=plastic) 
-![GitHub Releases](https://img.shields.io/github/downloads/Magisk-Modules-Alt-Repo/BuiltIn-BusyBox/latest/total?label=Downloads%20%28Latest%20Release%29&style=plastic)
-![GitHub All Releases](https://img.shields.io/github/downloads/Magisk-Modules-Alt-Repo/BuiltIn-BusyBox/total?label=Total%20Downloads%20%28All%20Releases%29&style=plastic)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/Magisk-Modules-Alt-Repo/ToyBox-Ext?label=Release&style=plastic) ![GitHub Release Date](https://img.shields.io/github/release-date/Magisk-Modules-Alt-Repo/ToyBox-Ext?label=Release%20Date&style=plastic) 
+![GitHub Releases](https://img.shields.io/github/downloads/Magisk-Modules-Alt-Repo/ToyBox-Ext/latest/total?label=Downloads%20%28Latest%20Release%29&style=plastic)
+![GitHub All Releases](https://img.shields.io/github/downloads/Magisk-Modules-Alt-Repo/ToyBox-Ext/total?label=Total%20Downloads%20%28All%20Releases%29&style=plastic)
 
 #### Copyright (c) zgfg @ xda, 2022-
 
