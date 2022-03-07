@@ -10,7 +10,7 @@ https://github.com/landley/toybox
 ##### TEST
 
 Ussually, **ToyBox** comes preinstalled to `/system/bin`, but with limited number of **applets**.
-The module installes additional `toybox-ext` binary, with the additional applets.
+The module installes additional `toybox-ext` binary, with the additional applets (**UNIX/Linux command-line utilities**).
 
 **Install** the module and **reboot**. Use **Terminal Emulator** - **Toybox applets** are for Terminal and **shell scripts**.
 
