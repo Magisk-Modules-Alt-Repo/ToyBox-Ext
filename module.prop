@@ -1,7 +1,7 @@
 id=ToyBox-Ext
 name=ToyBox (Ext)
-version=1.0.2
-versionCode=102
+version=1.0.3
+versionCode=103
 author=zgfg @ xda
 description=Install (additional) toybox applets. SUPPORTED: ARMv7 and higher 
 updateJson=https://raw.githubusercontent.com/Magisk-Modules-Alt-Repo/ToyBox-Ext/main/update.json
