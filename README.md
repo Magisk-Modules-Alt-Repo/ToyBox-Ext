@@ -52,9 +52,7 @@ w
 
 Hence, if you have also the `busybox` installed, `toybox-ext` will symlink less number of (additional) applets.
 
-**Note 2**: Since ToyBox-Ext **v1.0.2**, the module also looks if there are not-symlinked applets available from the preinstalled toybox binary.
-
-To check did it find and install them, repeat the above `which` and `ls -l` tests but looking for `toybox-stock` binary instead.
+**Note 2**: Since ToyBox-Ext **v1.0.2**, the module also looks if there are not-symlinked applets available from the pre-installed toybox binary (ROMs usually come with the pre-installed ToyBox but with smaller or an older binary and with a less number of applets).
 
 For me, the additionally found applets from the pre-installed ToyBox were e.g. `getfattr` and `iotop`.
 

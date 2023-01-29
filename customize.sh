@@ -1,14 +1,15 @@
+#!/system/bin/sh
+
+#Magisk Module ToyBox-Ext v1.0.4
+#Copyright (c) zgfg @ xda, 2022-
+
+if [ -z $BOOTMODE ] ||  [ "$BOOTMODE" != "true" ] 
+then
+	abort "ERROR: Install from Magisk app, not from TWRP!"
+fi
+
 # Module's own path (local path)
 cd $MODPATH
-
-# Install to System XBIN if the path exists, otherwise to System BIN path
-XBINDIR=/system/xbin
-if [ -d $XBINDIR ]
-then
-  TBDIR=$XBINDIR
-else
-  TBDIR=/system/bin
-fi
 
 # toybox ARMv7 and higher binaries
 TBBINList="
@@ -25,21 +26,20 @@ do
   then
     chmod 755 $TBBIN
 
-    # Test if binary executing 
+    # Test if binary executes 
     Applets=$(./$TBBIN)
-#    echo $Applets
 
     if [ ! -z "$Applets" ]
     then
       # Suitable binary found
-      echo "Installing $TBBIN binary and applets to $TBDIR"
+      echo "Installing $TBBIN binary and applets"
       TBFound=true
       mv $TBBIN toybox-ext
       continue
     fi
   fi
 
-  # Delete binary (already found or not executing)
+  # Delete binary (already found or doesn't execute)
   rm -f $TBBIN
 done
 
