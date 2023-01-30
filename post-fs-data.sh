@@ -1,7 +1,8 @@
 #!/system/bin/sh
 
-#Magisk Module ToyBox-Ext v1.0.4
-#Copyright (c) zgfg @ xda, 2022-
+# Magisk Module: ToyBox-Ext v1.0.4
+# Copyright (c) zgfg @ xda, 2022-
+# GitHub source: https://github.com/zgfg/ToyBox-Ext
 
 # Module's own path (local path)
 MODDIR=${0%/*}
@@ -27,7 +28,7 @@ rm -rf $TBBINDIR
 mkdir -p $TBDIR
 cd $TBDIR
 
-# Install toybox-stock binary if found in the path
+# List toybox-stock applets if found
 TB=toybox
 TBBIN=$(which $TB)
 if [ ! -z "$TBBIN" ]
@@ -47,9 +48,10 @@ do
 done
 
 # List toybox-ext applets
+Applets=$TB$'\n'
 TB=toybox-ext
 TBBIN=$MODDIR/$TB
-Applets=$TB$'\n'$($TBBIN)
+Applets=$Applets$TB$'\n'$($TBBIN)
 
 # Create symlinks for toybox-ext applets
 for Applet in $Applets

@@ -1,7 +1,8 @@
 #!/system/bin/sh
 
-#Magisk Module ToyBox-Ext v1.0.4
-#Copyright (c) zgfg @ xda, 2022-
+# Magisk Module: ToyBox-Ext v1.0.4
+# Copyright (c) zgfg @ xda, 2022-
+# GitHub source: https://github.com/zgfg/ToyBox-Ext
 
 if [ -z $BOOTMODE ] ||  [ "$BOOTMODE" != "true" ] 
 then
@@ -18,7 +19,7 @@ toybox-armv7m
 toybox-armv7l
 "
 
-# Find the suitable binary
+# Find the applicable binary
 TBFound=""
 for TBBIN in $TBBINList
 do
@@ -43,11 +44,11 @@ do
   rm -f $TBBIN
 done
 
+# Applicable binary not found
 if [ -z $TBFound ]
 then
-  # Suitable binary not found
   echo
-  echo ERROR: Not supported platform!
+  echo ERROR: Platform not supported!
   echo
   getprop | grep 'cpu\.abi'
   echo
