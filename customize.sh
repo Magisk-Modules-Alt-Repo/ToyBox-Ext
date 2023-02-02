@@ -1,6 +1,6 @@
 #!/system/bin/sh
 
-# Magisk Module: ToyBox-Ext v1.0.4
+# Magisk Module: ToyBox-Ext v1.0.5
 # Copyright (c) zgfg @ xda, 2022-
 # GitHub source: https://github.com/zgfg/ToyBox-Ext
 
@@ -19,38 +19,67 @@ toybox-armv7m
 toybox-armv7l
 "
 
-# Find the applicable binary
-TBFound=""
-for TBBIN in $TBBINList
-do
-  if [ -z $TBFound ]
-  then
-    chmod 755 $TBBIN
+# toybox binary to be installed
+TBEXT=toybox-ext
 
+# Find the applicable binary
+TBBIN=""
+for TB in $TBBINList
+do
+  if [ -z $TBBIN ]
+  then
     # Test if binary executes 
-    Applets=$(./$TBBIN)
+    echo "Testing archived $TB"
+    chmod 755 $TB
+    Applets=$(./$TB)
 
     if [ ! -z "$Applets" ]
     then
-      # Suitable binary found
-      echo "Installing $TBBIN binary and applets"
-      TBFound=true
-      mv $TBBIN toybox-ext
+      # Applicable binary found
+      TBBIN=$TB
+      mv $TBBIN $TBEXT
+      echo "Archived $TBBIN installed"
       continue
     fi
   fi
 
   # Delete binary (already found or doesn't execute)
-  rm -f $TBBIN
+  rm -f $TB
 done
 
-# Applicable binary not found
-if [ -z $TBFound ]
+if [ -z $TBBIN ]
 then
+  # Applicable binary not found
   echo
-  echo ERROR: Platform not supported!
+  echo "ERROR: ToyBox not installed!"
   echo
   getprop | grep 'cpu\.abi'
   echo
   exit -1
+fi
+
+# Download latest binary
+echo "Downloading latest $TBBIN"
+wget -c -T 10 "http://landley.net/toybox/bin/$TBBIN"
+
+# Test the download 
+if [ ! -e $TBBIN ]
+then
+  # Not downloaded 
+  echo "$TBBIN not downloaded"
+else
+  echo "Testing downloaded $TBBIN"
+  chmod 755 $TBBIN
+  Applets=$(./$TBBIN)
+  if [ "$Applets" ]
+  then
+    # Install 
+    mv $TBBIN $TBEXT
+    echo "Downloaded $TBBIN installed instead"
+  else
+    # Delete, not working
+    echo "Use archived $TBBIN instead"
+    echo "$TBBIN NOK"
+    rm -f $TBBIN
+  fi
 fi
