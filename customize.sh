@@ -71,7 +71,7 @@ else
   echo "Testing downloaded $TBBIN"
   chmod 755 $TBBIN
   Applets=$(./$TBBIN)
-  if [ "$Applets" ]
+  if [ ! -z "$Applets" ]
   then
     # Install 
     mv $TBBIN $TBEXT
