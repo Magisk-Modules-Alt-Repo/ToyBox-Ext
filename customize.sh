@@ -13,7 +13,7 @@ fi
 cd $MODPATH
 
 # toybox ARMv7 and higher binaries
-TBBINList="
+TBTYPEList="
 toybox-aarch64
 toybox-armv7m
 toybox-armv7l
@@ -23,10 +23,10 @@ toybox-armv7l
 TBEXT=toybox-ext
 
 # Find the applicable binary
-TBBIN=""
-for TB in $TBBINList
+TBTYPE=""
+for TB in $TBTYPEList
 do
-  if [ -z $TBBIN ]
+  if [ -z $TBTYPE ]
   then
     # Test if binary executes 
     echo "Testing archived $TB"
@@ -36,9 +36,9 @@ do
     if [ ! -z "$Applets" ]
     then
       # Applicable binary found
-      TBBIN=$TB
-      mv $TBBIN $TBEXT
-      echo "Archived $TBBIN installed"
+      TBTYPE=$TB
+      mv $TBTYPE $TBEXT
+      echo "Archived $TBTYPE installed"
       continue
     fi
   fi
@@ -47,7 +47,7 @@ do
   rm -f $TB
 done
 
-if [ -z $TBBIN ]
+if [ -z $TBTYPE ]
 then
   # Applicable binary not found
   echo
@@ -59,27 +59,33 @@ then
 fi
 
 # Download latest binary
-echo "Downloading latest $TBBIN"
-wget -c -T 10 "http://landley.net/toybox/bin/$TBBIN"
+echo "Downloading latest $TBTYPE"
+wget -c -T 10 "http://landley.net/toybox/bin/$TBTYPE"
 
 # Test the download 
-if [ ! -e $TBBIN ]
+if [ ! -e $TBTYPE ]
 then
   # Not downloaded 
-  echo "$TBBIN not downloaded"
+  echo "$TBTYPE not downloaded"
 else
-  echo "Testing downloaded $TBBIN"
-  chmod 755 $TBBIN
-  Applets=$(./$TBBIN)
+  echo "Testing downloaded $TBTYPE"
+  chmod 755 $TBTYPE
+  Applets=$(./$TBTYPE)
   if [ ! -z "$Applets" ]
   then
     # Install 
-    mv $TBBIN $TBEXT
-    echo "Downloaded $TBBIN installed instead"
+    mv $TBTYPE $TBEXT
+    echo "Downloaded $TBTYPE installed instead"
   else
     # Delete, not working
-    echo "Use archived $TBBIN instead"
-    echo "$TBBIN NOK"
-    rm -f $TBBIN
+    echo "Use archived $TBTYPE instead"
+    rm -f $TBTYPE
   fi
 fi
+
+# Current time
+DLTIME=$(date +"%s")
+
+# Save the toybox binary type and installation time
+echo "TBTYPE=$TBTYPE" > tbtype.sh
+echo "LASTDLTIME=$DLTIME" >> tbtype.sh

@@ -6,6 +6,17 @@
 
 # Module's own path (local path)
 MODDIR=${0%/*}
+cd $MODDIR
+
+# Read the original toybox binary type
+source tbtype.sh
+
+TBEXT=toybox-ext
+if [ ! -z $TBTYPE ] && [ -e $TBTYPE ]
+then
+  # Replace toybox with the latest downloaded binary
+  mv $TBTYPE $TBEXT
+fi
 
 # System XBIN path
 XBINDIR=/system/xbin
@@ -30,10 +41,10 @@ cd $TBDIR
 
 # List toybox-stock applets if found
 TB=toybox
-TBBIN=$(which $TB)
-if [ ! -z "$TBBIN" ]
+TBSTOCK=$(which $TB)
+if [ ! -z "$TBSTOCK" ]
 then
-  Applets=$($TBBIN)
+  Applets=$($TBSTOCK)
 fi
 
 # Create symlinks for toybox-stock applets
@@ -43,15 +54,13 @@ do
   Check=$(which $Applet)
   if [ -z "$Check" ]
   then
-    ln -s $TBBIN $Applet
+    ln -s $TBSTOCK $Applet
   fi
 done
 
 # List toybox-ext applets
-Applets=$TB$'\n'
-TB=toybox-ext
-TBBIN=$MODDIR/$TB
-Applets=$Applets$TB$'\n'$($TBBIN)
+TBBIN=$MODDIR/$TBEXT
+Applets=$TB$'\n'$TBEXT$'\n'$($TBBIN)
 
 # Create symlinks for toybox-ext applets
 for Applet in $Applets
