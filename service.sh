@@ -4,7 +4,7 @@
 # Copyright (c) zgfg @ xda, 2022-
 # GitHub source: https://github.com/zgfg/ToyBox-Ext
 
-# Wait to finish boot
+# Wait to finish booting
 until [ "$(getprop sys.boot_completed)" = 1 ]
 do
   sleep 1
@@ -17,8 +17,8 @@ cd $MODDIR
 # Current time
 DLTIME=$(date +"%s")
 
-# Read the original toybox binary type and last download time
-source tbtype.sh
+# Source the original toybox binary type and last download time
+. ./tbtype.sh
 
 # Passed time since the last download
 PASSEDTIME=$(($DLTIME - $LASTDLTIME))
@@ -29,6 +29,7 @@ WAITTIME=$((15 * 24 * 3600))
 # If waiting time passed, download the latest binary again
 if [ ! -z $TBTYPE ] && [[ $PASSEDTIME -gt $WAITTIME ]]
 then
+  sleep 5
   rm -f $TBTYPE
   wget -c "http://landley.net/toybox/bin/$TBTYPE"
 fi

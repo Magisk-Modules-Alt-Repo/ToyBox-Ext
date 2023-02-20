@@ -8,8 +8,8 @@
 MODDIR=${0%/*}
 cd $MODDIR
 
-# Read the original toybox binary type
-source tbtype.sh
+# Source the original toybox binary type
+. ./tbtype.sh
 
 TBEXT=toybox-ext
 if [ ! -z $TBTYPE ] && [ -e $TBTYPE ]
