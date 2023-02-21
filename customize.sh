@@ -87,5 +87,6 @@ fi
 DLTIME=$(date +"%s")
 
 # Save the toybox binary type and installation time
-echo "TBTYPE=$TBTYPE" > tbtype.sh
-echo "LASTDLTIME=$DLTIME" >> tbtype.sh
+TBSCRIPT='./tbtype.sh'
+echo "TBTYPE=$TBTYPE" > $TBSCRIPT
+echo "LASTDLTIME=$DLTIME" >> $TBSCRIPT

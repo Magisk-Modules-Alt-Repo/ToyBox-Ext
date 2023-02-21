@@ -29,7 +29,6 @@ PASSEDTIME=$(($DLTIME - $LASTDLTIME))
 
 # Waiting time between downloads (15 days)
 WAITTIME=$((15 * 24 * 3600))
-WAITTIME=$((10 * 60))  # toDo: delete
 
 # If waiting time passed, download the latest binary again
 if [ ! -z $TBTYPE ] && [[ $PASSEDTIME -gt $WAITTIME ]]
@@ -47,8 +46,8 @@ then
   if [ ! -z "$Applets" ]
   then
     # Save the toybox binary type and installation time
-    echo "TBTYPE=$TBTYPE" > tbtype.sh
-    echo "LASTDLTIME=$DLTIME" >> tbtype.sh
+    echo "TBTYPE=$TBTYPE" > $TBSCRIPT
+    echo "LASTDLTIME=$DLTIME" >> $TBSCRIPT
   else
     # Delete, not working
     rm -f $TBTYPE
