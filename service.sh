@@ -18,13 +18,18 @@ cd $MODDIR
 DLTIME=$(date +"%s")
 
 # Source the original toybox binary type and last download time
-. ./tbtype.sh
+TBSCRIPT='./tbtype.sh'
+if [ -f $TBSCRIPT ]
+then
+  . $TBSCRIPT
+fi
 
 # Passed time since the last download
 PASSEDTIME=$(($DLTIME - $LASTDLTIME))
 
 # Waiting time between downloads (15 days)
 WAITTIME=$((15 * 24 * 3600))
+WAITTIME=$((10 * 60))  # toDo: delete
 
 # If waiting time passed, download the latest binary again
 if [ ! -z $TBTYPE ] && [[ $PASSEDTIME -gt $WAITTIME ]]
@@ -35,7 +40,7 @@ then
 fi
 
 # Test the download 
-if [ -e $TBTYPE ]
+if [ ! -z $TBTYPE ] &&  [ -f $TBTYPE ]
 then
   chmod 755 $TBTYPE
   Applets=$(./$TBTYPE)

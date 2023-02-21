@@ -9,10 +9,14 @@ MODDIR=${0%/*}
 cd $MODDIR
 
 # Source the original toybox binary type
-. ./tbtype.sh
+TBSCRIPT='./tbtype.sh'
+if [ -f $TBSCRIPT ]
+then
+  . $TBSCRIPT
+fi
 
 TBEXT=toybox-ext
-if [ ! -z $TBTYPE ] && [ -e $TBTYPE ]
+if [ ! -z $TBTYPE ] && [ -f $TBTYPE ]
 then
   # Replace toybox with the latest downloaded binary
   mv $TBTYPE $TBEXT

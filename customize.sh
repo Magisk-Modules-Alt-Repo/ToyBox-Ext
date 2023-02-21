@@ -63,7 +63,7 @@ echo "Downloading latest $TBTYPE"
 wget -c -T 10 "http://landley.net/toybox/bin/$TBTYPE"
 
 # Test the download 
-if [ ! -e $TBTYPE ]
+if [ ! -f $TBTYPE ]
 then
   # Not downloaded 
   echo "$TBTYPE not downloaded"
