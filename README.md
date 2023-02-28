@@ -56,6 +56,8 @@ Hence, if you have also the `busybox` installed, `toybox-ext` will symlink less 
 
 For me, the additionally found applets from the pre-installed ToyBox were e.g. `getfattr` and `iotop`.
 
+### Coffee
+If this module is useful for you, please support development by donating a [coffe](https://www.paypal.me/ipenzar)
 
 #### Source 
 
