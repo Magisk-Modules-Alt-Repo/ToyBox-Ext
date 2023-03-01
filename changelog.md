@@ -1,3 +1,6 @@
+#### Coffee
+If the module is useful, you may support development by donating a [coffee](https://www.paypal.me/ipenzar)
+
 #### v1.0.5
 
 Update to the latest ToyBox binary on installation 
