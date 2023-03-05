@@ -63,7 +63,8 @@ Applets=$TB$'\n'$TBEXT$'\n'$($TBBIN)
 for Applet in $Applets
 do
   # Skip if applet already found in the path
-  if [ ! -x "$SDIR/$Applet" ] && [ ! -x "$TBPATH/$Applet" ]
+Check=$(which $Applet)
+  if [ -z "$Check" ] && [ ! -x "$SDIR/$Applet" ] && [ ! -x "$TBPATH/$Applet" ]
   then
     ln -s $TBBIN $Applet
   fi
@@ -80,7 +81,8 @@ fi
 for Applet in $Applets
 do
   # Skip if applet already found in the path
-  if [ ! -x "$SDIR/$Applet" ] && [ ! -x "$TBPATH/$Applet" ]
+ Check=$(which $Applet)
+  if [ -z "$Check" ] && [ ! -x "$SDIR/$Applet" ] && [ ! -x "$TBPATH/$Applet" ]
   then
     ln -s $TBSTOCK $Applet
   fi
