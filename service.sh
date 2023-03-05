@@ -1,6 +1,6 @@
 #!/system/bin/sh
 
-# Magisk Module: ToyBox-Ext v1.0.5
+# Magisk Module: ToyBox-Ext v1.0.6
 # Copyright (c) zgfg @ xda, 2022-
 # GitHub source: https://github.com/zgfg/ToyBox-Ext
 

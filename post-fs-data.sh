@@ -1,6 +1,6 @@
 #!/system/bin/sh
 
-# Magisk Module: ToyBox-Ext v1.0.5
+# Magisk Module: ToyBox-Ext v1.0.6
 # Copyright (c) zgfg @ xda, 2022-
 # GitHub source: https://github.com/zgfg/ToyBox-Ext
 
@@ -15,25 +15,29 @@ then
   . $TBSCRIPT
 fi
 
+# ToyBox-Ext
 TBEXT=toybox-ext
 if [ ! -z $TBTYPE ] && [ -f $TBTYPE ]
 then
-  # Replace toybox with the latest downloaded binary
+  # Replace toybox-ext with the latest downloaded binary
   mv $TBTYPE $TBEXT
 fi
 
 # System XBIN path
 XBINDIR=/system/xbin
+BINDIR=/system/bin
 
 # Local XBIN and (or) BIN paths for mounting
 TBXBINDIR=$MODDIR$XBINDIR
-TBBINDIR=$MODDIR/system/bin
+TBBINDIR=$MODDIR$BINDIR
 
 # Use local XBIN path if System XBIN path exists, otherwise use local BIN path
 if [ -d $XBINDIR ]
 then
+  SDIR=$XBINDIR
   TBDIR=$TBXBINDIR
 else
+  SDIR=$BINDIR
   TBDIR=$TBBINDIR
 fi
 
@@ -43,24 +47,13 @@ rm -rf $TBBINDIR
 mkdir -p $TBDIR
 cd $TBDIR
 
-# List toybox-stock applets if found
+# Stock toybox
 TB=toybox
 TBSTOCK=$(which $TB)
 if [ ! -z "$TBSTOCK" ]
 then
-  Applets=$($TBSTOCK)
+  TBPATH=$(echo "$TBSTOCK" | sed "s,/$TB$,,")
 fi
-
-# Create symlinks for toybox-stock applets
-for Applet in $Applets
-do
-  # Skip if applet already found in the path
-  Check=$(which $Applet)
-  if [ -z "$Check" ]
-  then
-    ln -s $TBSTOCK $Applet
-  fi
-done
 
 # List toybox-ext applets
 TBBIN=$MODDIR/$TBEXT
@@ -70,9 +63,25 @@ Applets=$TB$'\n'$TBEXT$'\n'$($TBBIN)
 for Applet in $Applets
 do
   # Skip if applet already found in the path
-  Check=$(which $Applet)
-  if [ -z "$Check" ]
+  if [ ! -x "$SDIR/$Applet" ] && [ ! -x "$TBPATH/$Applet" ]
   then
     ln -s $TBBIN $Applet
+  fi
+done
+
+# List toybox-stock applets if found
+Applets=""
+if [ ! -z "$TBSTOCK" ]
+then
+  Applets=$TB$'\n'$($TBSTOCK)
+fi
+
+# Create symlinks for toybox-stock applets
+for Applet in $Applets
+do
+  # Skip if applet already found in the path
+  if [ ! -x "$SDIR/$Applet" ] && [ ! -x "$TBPATH/$Applet" ]
+  then
+    ln -s $TBSTOCK $Applet
   fi
 done
