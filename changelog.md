@@ -1,6 +1,10 @@
 #### Coffee
 If the module is useful, you may support development by donating a [coffee](https://zgfg.github.io/PayPal.html)
 
+#### v1.0.6
+
+Force the latest ToyBox applets 
+
 #### v1.0.5
 
 Update to the latest ToyBox binary on installation 
