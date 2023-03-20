@@ -19,6 +19,9 @@ toybox-armv7m
 toybox-armv7l
 "
 
+echo "ABI: $(getprop ro.product.cpu.abi)"
+echo "ABILIST: $(getprop ro.product.cpu.abilist)"
+
 # toybox binary to be installed
 TBEXT=toybox-ext
 
@@ -53,7 +56,7 @@ then
   echo
   echo "ERROR: ToyBox not installed!"
   echo
-  getprop | grep 'cpu\.abi'
+  echo "$(cat /proc/cpuinfo)"
   echo
   exit -1
 fi
