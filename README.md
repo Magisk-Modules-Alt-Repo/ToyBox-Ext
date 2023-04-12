@@ -71,7 +71,11 @@ For me, the additionally found applets from the pre-installed ToyBox were e.g. `
 ![GitHub All Releases](https://img.shields.io/github/downloads/Magisk-Modules-Alt-Repo/ToyBox-Ext/total?label=Total%20Downloads%20%28All%20Releases%29&style=plastic)
 
 #### Copyright (c) zgfg @ xda, 2022-
+
 <p align="left">
-</a> <a href="https://github.com/zgfg/ToyBox-Ext/blob/2edee818626060f95b09e4653094fbe3dcbaabf0/LICENSE"> <img src="https://img.shields.io/github/license/zgfg/ToyBox-Ext?label=License&logo=gnu" alt="GNU General Public License"></a>
-<a href="https://zgfg.github.io/PayPal.html"> <img src="https://img.shields.io/badge/-Donate%20a%20coffee-FFDD00?logo=Buy-me-a-coffee&logoColor=black" alt="Donate a coffee"> </a> 
+<a href="https://github.com/zgfg/ToyBox-Ext/blob/4bc5c7b33512fc4fcb10881fb61830ebcff2bf52/LICENSE">
+<img src="https://img.shields.io/github/license/zgfg/ToyBox-Ext?label=License&logo=gnu&logoColor=orange&color=orange" alt="OBSD License">
+</a>
+<a href="https://zgfg.github.io/PayPal.html"> <img src="https://img.shields.io/badge/-Donate%20a%20coffee-FFDD00?logo=CoffeeScript&logoColor=black" alt="Donate a coffee">
+</a> 
 </p>
