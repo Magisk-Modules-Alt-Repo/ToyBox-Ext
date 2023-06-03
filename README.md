@@ -56,9 +56,6 @@ Hence, if you have also the `busybox` installed, `toybox-ext` will symlink less 
 
 For me, the additionally found applets from the pre-installed ToyBox were e.g. `getfattr` and `iotop`.
 
-### Coffee
-If this module is useful for you, please support development by donating a [coffee](https://zgfg.github.io/PayPal.html)
-
 #### Source 
 
 [My Repo:](https://github.com/zgfg/ToyBox-Ext)
@@ -75,3 +72,10 @@ If this module is useful for you, please support development by donating a [coff
 
 #### Copyright (c) zgfg @ xda, 2022-
 
+<p align="left">
+<a href="https://github.com/zgfg/ToyBox-Ext/blob/4bc5c7b33512fc4fcb10881fb61830ebcff2bf52/LICENSE">
+<img src="https://img.shields.io/github/license/zgfg/ToyBox-Ext?label=License&logo=gnu&logoColor=orange&color=orange" alt="OBSD License">
+</a>
+<a href="https://zgfg.github.io/PayPal.html"> <img src="https://img.shields.io/badge/-Donate%20a%20coffee-FFDD00?logo=CoffeeScript&logoColor=black" alt="Donate a coffee">
+</a> 
+</p>
