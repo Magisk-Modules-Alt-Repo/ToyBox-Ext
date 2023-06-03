@@ -4,9 +4,11 @@
 # Copyright (c) zgfg @ xda, 2022-
 # GitHub source: https://github.com/zgfg/ToyBox-Ext
 
+# Module's own path (local path)
 MODDIR=${0%/*}
+cd $MODDIR
 
-# Debug
+# Log for debugging
 LogFile="$MODDIR/service.log"
 exec 2>$LogFile
 set -x
@@ -17,10 +19,6 @@ until [ "$(getprop sys.boot_completed)" = 1 ]
 do
   sleep 1
 done
-
-# Module's own path (local path)
-MODDIR=${0%/*}
-cd $MODDIR
 
 # Current time
 DLTIME=$(date +"%s")

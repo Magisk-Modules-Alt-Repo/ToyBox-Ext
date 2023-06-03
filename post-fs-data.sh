@@ -8,11 +8,10 @@
 MODDIR=${0%/*}
 cd $MODDIR
 
-# Debug
+# Log for debugging
 LogFile="$MODDIR/post-fs-data.log"
 exec 2>$LogFile
 set -x
-$(date +%c)
 
 # Source the original toybox binary type
 TBSCRIPT='./tbtype.sh'
