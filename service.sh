@@ -1,6 +1,6 @@
 #!/system/bin/sh
 
-# Magisk Module: ToyBox-Ext v1.0.7
+# Magisk Module: ToyBox-Ext v1.0.8
 # Copyright (c) zgfg @ xda, 2022-
 # GitHub source: https://github.com/zgfg/ToyBox-Ext
 
@@ -12,7 +12,7 @@ cd $MODDIR
 LogFile="$MODDIR/service.log"
 exec 2>$LogFile
 set -x
-$(date +%c)
+LogTime=$(date +%c)
 
 # Wait to finish booting
 until [ "$(getprop sys.boot_completed)" = 1 ]
@@ -35,6 +35,7 @@ PASSEDTIME=$(($DLTIME - $LASTDLTIME))
 
 # Waiting time between downloads (15 days)
 WAITTIME=$((15 * 24 * 3600))
+WAITTIME=$((15 * 60)) # toDo: Remove
 
 # If waiting time passed, download the latest binary again
 if [ ! -z $TBTYPE ] && [ $PASSEDTIME -gt $WAITTIME ]
@@ -52,6 +53,9 @@ then
   MD5New=$(md5sum "$TBTYPE" | head -c 32)
   if [ "$MD5New" = "$MD5Old" ]
   then
+    # Save the download time
+    echo "LASTDLTIME=$DLTIME" >> $TBSCRIPT
+
     # Delete, same as old binary
     rm -f $TBTYPE
   else
@@ -63,7 +67,7 @@ then
       # Delete, not working
       rm -f $TBTYPE
     else
-      # Save the binary type and installation time
+      # Save the toybox binary type and installation time
       echo "TBTYPE=$TBTYPE" > $TBSCRIPT
       echo "LASTDLTIME=$DLTIME" >> $TBSCRIPT
 
