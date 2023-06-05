@@ -28,7 +28,7 @@ fi
 PASSEDTIME=$(($DLTIME - $LASTDLTIME))
 
 # Waiting time between downloads (15 days)
-#WAITTIME=$((15 * 24 * 3600))
+WAITTIME=$((15 * 24 * 3600))
 
 # If waiting time passed, download the latest binary again
 if [ ! -z $TBTYPE ] && [ $PASSEDTIME -gt $WAITTIME ]
