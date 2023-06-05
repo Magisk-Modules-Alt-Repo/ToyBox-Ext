@@ -14,12 +14,6 @@ exec 3>&2 2>$LogFile
 set -x
 LogTime=$(date +%c)
 
-# Wait to finish booting
-until [ "$(getprop sys.boot_completed)" = 1 ]
-do
-  sleep 1
-done
-
 # Current time
 DLTIME=$(date +"%s")
 
@@ -34,13 +28,20 @@ fi
 PASSEDTIME=$(($DLTIME - $LASTDLTIME))
 
 # Waiting time between downloads (15 days)
-WAITTIME=$((15 * 24 * 3600))
-WAITTIME=$((2 * 60)) # toDo: Remove
+#WAITTIME=$((15 * 24 * 3600))
+WAITTIME=$((20  * 60))
 
 # If waiting time passed, download the latest binary again
 if [ ! -z $TBTYPE ] && [ $PASSEDTIME -gt $WAITTIME ]
 then
-  sleep 5
+  # Wait to finish booting
+  until [ "$(getprop sys.boot_completed)" = 1 ]
+  do
+    sleep 1
+  done
+
+  # and few more seconds
+  sleep 3
   rm -f $TBTYPE
   /data/adb/magisk/busybox wget -c -T 20 "http://landley.net/toybox/bin/$TBTYPE"
 fi
