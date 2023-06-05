@@ -10,7 +10,7 @@ cd $MODDIR
 
 # Log for debugging
 LogFile="$MODDIR/service.log"
-exec 2>$LogFile
+exec 3>&2 2>$LogFile
 set -x
 LogTime=$(date +%c)
 
@@ -35,7 +35,7 @@ PASSEDTIME=$(($DLTIME - $LASTDLTIME))
 
 # Waiting time between downloads (15 days)
 WAITTIME=$((15 * 24 * 3600))
-WAITTIME=$((15 * 60)) # toDo: Remove
+WAITTIME=$((2 * 60)) # toDo: Remove
 
 # If waiting time passed, download the latest binary again
 if [ ! -z $TBTYPE ] && [ $PASSEDTIME -gt $WAITTIME ]
@@ -67,12 +67,14 @@ then
       # Delete, not working
       rm -f $TBTYPE
     else
-      # Save the toybox binary type and installation time
+      # Save the binary type and installation time
       echo "TBTYPE=$TBTYPE" > $TBSCRIPT
       echo "LASTDLTIME=$DLTIME" >> $TBSCRIPT
 
       # Notify user to reboot
-      su -lp 2000 -c "cmd notification post -S bigtext -t 'ToyBox-Ext Module' 'Tag' 'Reboot to update ToyBox binary'" 1> /dev/null
+      exec 2>&3 3>&-
+      su -lp 2000 -c "cmd notification post -S bigtext -t 'ToyBox-Ext Module' 'Tag' 'Reboot to update ToyBox binary'" 1>/dev/null
+	  exec 3>&2 2>>$LogFile
     fi
   fi
 fi
