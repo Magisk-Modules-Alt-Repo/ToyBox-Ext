@@ -1,6 +1,10 @@
 #### Coffee
 If the module is useful, you may support development by donating a [coffee](https://zgfg.github.io/PayPal.html)
 
+#### v1.0.8
+
+Service fix for v1.0.7 and improved logging
+
 #### v1.0.7
 
 Logging and notify when new ToyBox binary is ready for installation
