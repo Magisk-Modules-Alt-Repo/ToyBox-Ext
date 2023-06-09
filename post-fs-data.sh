@@ -1,19 +1,24 @@
 #!/system/bin/sh
 
-# Magisk Module: ToyBox-Ext v1.0.8
+# Magisk Module: ToyBox-Ext v1.0.8a
 # Copyright (c) zgfg @ xda, 2022-
 # GitHub source: https://github.com/zgfg/ToyBox-Ext
 
 # Module's own path (local path)
 MODDIR=${0%/*}
-cd $MODDIR
 
-# Log for debugging
+# Log file for debugging
 LogFile="$MODDIR/post-fs-data.log"
-exec 2>$LogFile
+exec 2>$LogFile 1>&2
 set -x
 
+# Log Magisk version and magisk --path
+magisk -c
+magisk --path
+
 # Source the original toybox binary type
+cd $MODDIR
+pwd
 TBSCRIPT='./tbtype.sh'
 if [ -f $TBSCRIPT ]
 then
@@ -30,29 +35,19 @@ then
 fi
 chmod 755 $TBEXT
 
-# System XBIN path
-XBINDIR=/system/xbin
-BINDIR=/system/bin
+# Clean-up old stuff
+rm -rf "$MODDIR/system"
 
-# Local XBIN and (or) BIN paths for mounting
-TBXBINDIR=$MODDIR$XBINDIR
-TBBINDIR=$MODDIR$BINDIR
-
-# Use local XBIN path if System XBIN path exists, otherwise use local BIN path
-if [ -d $XBINDIR ]
+# Choose XBIN or BIN path
+SDIR=/system/xbin
+if [ ! -d $SDIR ]
 then
-  SDIR=$XBINDIR
-  TBDIR=$TBXBINDIR
-else
-  SDIR=$BINDIR
-  TBDIR=$TBBINDIR
+  SDIR=/system/bin
 fi
-
-# Clean-up local XBIN and BIN paths
-rm -rf $TBXBINDIR
-rm -rf $TBBINDIR
+TBDIR=$MODDIR$SDIR
 mkdir -p $TBDIR
 cd $TBDIR
+pwd
 
 # ToyBox-Ext applets
 TBBIN=$MODDIR/$TBEXT
@@ -90,3 +85,14 @@ do
     ln -s $TBSTOCK $Applet
   fi
 done
+
+# Log results for ToyBox-Ext
+ls -l $TBEXT
+$TBBIN --version
+ls -l | grep $TBEXT | grep ^lr.x | rev | cut -d ' ' -f 3 | rev
+ls -l | grep $TBEXT | grep ^lr.x | wc -l
+
+# Log results for stock ToyBox
+$TBSTOCK --version
+ls -l | grep $TB | grep -v $TBEXT | grep ^lr.x | rev | cut -d ' ' -f 3 | rev
+ls -l | grep $TB | grep -v $TBEXT | grep ^lr.x | wc -l

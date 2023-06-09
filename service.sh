@@ -1,28 +1,59 @@
 #!/system/bin/sh
 
-# Magisk Module: ToyBox-Ext v1.0.8
+# Magisk Module: ToyBox-Ext v1.0.8a
 # Copyright (c) zgfg @ xda, 2022-
 # GitHub source: https://github.com/zgfg/ToyBox-Ext
 
 # Module's own path (local path)
 MODDIR=${0%/*}
-cd $MODDIR
 
 # Log for debugging
 LogFile="$MODDIR/service.log"
-exec 3>&2 2>$LogFile
+exec 3>&2 2>$LogFile 1>&2
 set -x
-LogTime=$(date +%c)
+date +%c
 
-# Current time
-DLTIME=$(date +"%s")
+# Log Magisk version and magisk --path
+magisk -c
+magisk --path
+
+# Log results for ToyBox-Ext
+TBEXT=toybox-ext
+which $TBEXT
+$TBEXT --version
+SDIR=$(which $TBEXT | sed "s,/$TBEXT$,,")
+if [ -d $SDIR ]
+then
+  cd $SDIR
+  pwd
+  ls -la | grep $TBEXT | grep ^lr.x | rev | cut -d ' ' -f 3 | rev
+  ls -la | grep $TBEXT | grep ^lr.x | wc -l
+fi
+
+# Log results for stock ToyBox
+TB=toybox
+which $TB
+$TB --version
+SDIR=$(which $TB | sed "s,/$TB$,,")
+if [ -d $SDIR ]
+then
+  cd $SDIR
+  pwd
+  ls -la | grep $TB | grep -v $TBEXT | grep ^lr.x | rev | cut -d ' ' -f 3 | rev
+  ls -la | grep $TB | grep -v $TBEXT | grep ^lr.x | wc -l
+fi
 
 # Source the original toybox binary type and last download time
+cd $MODDIR
+pwd
 TBSCRIPT='./tbtype.sh'
 if [ -f $TBSCRIPT ]
 then
   . $TBSCRIPT
 fi
+
+# Current time
+DLTIME=$(date +"%s")
 
 # Passed time since the last download
 PASSEDTIME=$(($DLTIME - $LASTDLTIME))
@@ -74,7 +105,7 @@ then
       # Notify user to reboot
       exec 2>&3 3>&-
       su -lp 2000 -c "cmd notification post -S bigtext -t 'ToyBox-Ext Module' 'Tag' 'Reboot to update ToyBox binary'" 1>/dev/null
-	  exec 3>&2 2>>$LogFile
+	  exec 3>&2 2>>$LogFile 1>&2
     fi
   fi
 fi
