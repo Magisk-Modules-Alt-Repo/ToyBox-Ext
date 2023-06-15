@@ -56,9 +56,8 @@ Applets=$TB$'\n'$TBEXT$'\n'$($TBBIN)
 # Create symlinks for toybox-ext applets
 for Applet in $Applets
 do
-  # Skip if applet already found in the path
-  Check=$(which $Applet)
-  if [ -z "$Check" ] && [ ! -x "$SDIR/$Applet" ]
+  Target=$SDIR/$Applet
+  if [ ! -x $Target ]
   then
     # Create symlink
     ln -s $TBBIN $Applet
@@ -77,9 +76,8 @@ fi
 # Create symlinks for toybox-stock applets
 for Applet in $Applets
 do
-  # Skip if applet already found in the path
-  Check=$(which $Applet)
-  if [ -z "$Check" ] && [ ! -x "$SDIR/$Applet" ] && [ ! -x "$TBPATH/$Applet" ] && [ ! -x "$Applet" ]
+  Target=$SDIR/$Applet
+  if [ ! -x $Target ] && [ ! -x "$TBPATH/$Applet" ] && [ ! -h "$Applet" ]
   then
     # Create symlink
     ln -s $TBSTOCK $Applet

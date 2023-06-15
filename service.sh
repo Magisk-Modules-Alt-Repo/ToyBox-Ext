@@ -17,30 +17,35 @@ date +%c
 magisk -c
 magisk --path
 
-# Log results for ToyBox-Ext
-TBEXT=toybox-ext
-which $TBEXT
-$TBEXT --version
-SDIR=$(which $TBEXT | sed "s,/$TBEXT$,,")
-if [ -d $SDIR ]
-then
-  cd $SDIR
-  pwd
-  ls -la | grep $TBEXT | grep ^lr.x | rev | cut -d ' ' -f 3 | rev
-  ls -la | grep $TBEXT | grep ^lr.x | wc -l
-fi
-
 # Log results for stock ToyBox
 TB=toybox
+TBEXT=toybox-ext
 which $TB
 $TB --version
-SDIR=$(which $TB | sed "s,/$TB$,,")
-if [ -d $SDIR ]
+TBDIR=$(which $TB | sed "s,/$TB$,,")
+if [ -d $TBDIR ]
 then
-  cd $SDIR
+  cd $TBDIR
   pwd
   ls -la | grep $TB | grep -v $TBEXT | grep ^lr.x | rev | cut -d ' ' -f 3 | rev
   ls -la | grep $TB | grep -v $TBEXT | grep ^lr.x | wc -l
+fi
+
+# Log results for ToyBox-Ext
+which $TBEXT
+$TBEXT --version
+TBEXTDIR=$(which $TBEXT | sed "s,/$TBEXT$,,")
+if [ -d $TBEXTDIR ]
+then
+  cd $TBEXTDIR
+  pwd
+  ls -la | grep $TBEXT | grep ^lr.x | rev | cut -d ' ' -f 3 | rev
+  ls -la | grep $TBEXT | grep ^lr.x | wc -l
+  if [ "$TBEXTDIR" != "$TBDIR" ]
+  then
+    ls -la | grep $TB | grep -v $TBEXT | grep ^lr.x | rev | cut -d ' ' -f 3 | rev
+    ls -la | grep $TB | grep -v $TBEXT | grep ^lr.x | wc -l
+  fi
 fi
 
 # Source the original toybox binary type and last download time
