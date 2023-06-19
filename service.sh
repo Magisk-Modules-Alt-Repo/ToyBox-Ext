@@ -19,10 +19,11 @@ magisk --path
 
 # Log results for stock ToyBox
 TB=toybox
-TBEXT=toybox-ext
-which $TB
 $TB --version
-TBDIR=$(which $TB | sed "s,/$TB$,,")
+TBBIN=$(which $TB)
+ls -lZ $TBBIN
+TBDIR=$(echo "$TBBIN" | sed "s,/$TB$,,")
+TBEXT=toybox-ext
 if [ -d $TBDIR ]
 then
   cd $TBDIR
@@ -32,9 +33,10 @@ then
 fi
 
 # Log results for ToyBox-Ext
-which $TBEXT
 $TBEXT --version
-TBEXTDIR=$(which $TBEXT | sed "s,/$TBEXT$,,")
+TBEXTBIN=$(which $TBEXT)
+ls -lZ $TBEXTBIN
+TBEXTDIR=$(echo "$TBEXTBIN" | sed "s,/$TBEXT$,,")
 if [ -d $TBEXTDIR ]
 then
   cd $TBEXTDIR

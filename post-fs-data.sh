@@ -50,17 +50,16 @@ cd $TBDIR
 pwd
 
 # ToyBox-Ext applets
-TBBIN=$MODDIR/$TBEXT
-Applets=$TB$'\n'$TBEXT$'\n'$($TBBIN)
+TBEXTBIN=$MODDIR/$TBEXT
+Applets=$TB$'\n'$TBEXT$'\n'$($TBEXTBIN)
 
 # Create symlinks for toybox-ext applets
 for Applet in $Applets
 do
-  Target=$SDIR/$Applet
-  if [ ! -x $Target ]
+  if [ ! -x $SDIR/$Applet ]
   then
     # Create symlink
-    ln -s $TBBIN $Applet
+    ln -s $TBEXTBIN $Applet
   fi
 done
 
@@ -76,17 +75,18 @@ fi
 # Create symlinks for toybox-stock applets
 for Applet in $Applets
 do
-  Target=$SDIR/$Applet
-  if [ ! -x $Target ] && [ ! -x "$TBPATH/$Applet" ] && [ ! -h "$Applet" ]
+ if [ ! -h "$Applet" ] && [ ! -x "$TBPATH/$Applet" ] && [ ! -x "$SDIR/$Applet" ]
   then
     # Create symlink
     ln -s $TBSTOCK $Applet
   fi
 done
+chmod 755 *
+chcon u:object_r:system_file:s0 *
 
 # Log results for ToyBox-Ext
-ls -l $TBEXT
-$TBBIN --version
+ls -lZ $TBEXT
+$TBEXTBIN --version
 ls -l | grep $TBEXT | grep ^lr.x | rev | cut -d ' ' -f 3 | rev
 ls -l | grep $TBEXT | grep ^lr.x | wc -l
 
