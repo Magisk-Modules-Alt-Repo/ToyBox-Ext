@@ -9,9 +9,6 @@ then
 	abort "ERROR: Install from Magisk app, not from TWRP!"
 fi
 
-# Module's own path (local path)
-cd $MODPATH
-
 # Log file for debugging
 LogFile="$MODPATH/customize.log"
 
@@ -21,6 +18,10 @@ LogFile="$MODPATH/customize.log"
 #date +%c
 #magisk -c
 #magisk --path
+
+# Module's own path (local path)
+cd $MODPATH
+pwd
 
 # toybox ARMv7 and higher binaries
 TBTYPEList="
