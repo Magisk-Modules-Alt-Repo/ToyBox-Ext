@@ -1,6 +1,6 @@
 #!/system/bin/sh
 
-# Magisk Module: ToyBox-Ext v1.0.8a
+# Magisk Module: ToyBox-Ext v1.0.9
 # Copyright (c) zgfg @ xda, 2022-
 # GitHub source: https://github.com/zgfg/ToyBox-Ext
 
@@ -16,6 +16,10 @@ date +%c
 # Log Magisk version and magisk --path
 magisk -c
 magisk --path
+
+# Log ROM A/B info
+getprop ro.product.cpu.abi
+getprop ro.product.cpu.abilist
 
 # Log results for stock ToyBox
 TB=toybox
@@ -77,7 +81,7 @@ then
     sleep 1
   done
 
-  # and few more seconds
+  # Wait few additional seconds
   sleep 3
   rm -f $TBTYPE
   /data/adb/magisk/busybox wget -c -T 20 "http://landley.net/toybox/bin/$TBTYPE"
@@ -110,8 +114,9 @@ then
       echo "LASTDLTIME=$DLTIME" >> $TBSCRIPT
 
       # Notify user to reboot
+      Version=$(./$TBTYPE --version)
       exec 2>&3 3>&-
-      su -lp 2000 -c "cmd notification post -S bigtext -t 'ToyBox-Ext Module' 'Tag' 'Reboot to update ToyBox binary'" 1>/dev/null
+      su -lp 2000 -c "cmd notification post -S bigtext -t 'ToyBox-Ext Module' 'Tag' 'Reboot to update ToyBox binary to $Version'" 1>/dev/null
 	  exec 3>&2 2>>$LogFile 1>&2
     fi
   fi

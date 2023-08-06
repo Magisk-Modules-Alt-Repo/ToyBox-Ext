@@ -1,6 +1,6 @@
 #!/system/bin/sh
 
-# Magisk Module: ToyBox-Ext v1.0.8
+# Magisk Module: ToyBox-Ext v1.0.9
 # Copyright (c) zgfg @ xda, 2022-
 # GitHub source: https://github.com/zgfg/ToyBox-Ext
 
@@ -12,15 +12,22 @@ fi
 # Module's own path (local path)
 cd $MODPATH
 
+# Log file for debugging
+LogFile="$MODPATH/customize.log"
+
+# Uncomment for logging
+#exec 3>&2 2>$LogFile 1>&2
+#set -x
+#date +%c
+#magisk -c
+#magisk --path
+
 # toybox ARMv7 and higher binaries
 TBTYPEList="
 toybox-aarch64
 toybox-armv7m
 toybox-armv7l
 "
-
-echo "ABI: $(getprop ro.product.cpu.abi)"
-echo "ABILIST: $(getprop ro.product.cpu.abilist)"
 
 # toybox binary to be installed
 TBEXT=toybox-ext
@@ -41,7 +48,8 @@ do
       # Applicable binary found
       TBTYPE=$TB
       mv $TBTYPE $TBEXT
-      echo "Archived $TBTYPE installed"
+      Version=$(./$TBEXT --version)
+      echo "Archived $TBTYPE $Version installed"
       continue
     fi
   fi
@@ -61,6 +69,14 @@ then
   exit -1
 fi
 
+# Current time
+DLTIME=$(date +"%s")
+
+# Save the toybox binary type and installation time
+TBSCRIPT='./tbtype.sh'
+echo "TBTYPE=$TBTYPE" > $TBSCRIPT
+echo "LASTDLTIME=$DLTIME" >> $TBSCRIPT
+
 # Download latest binary
 echo "Downloading latest $TBTYPE"
 wget -c -T 10 "http://landley.net/toybox/bin/$TBTYPE"
@@ -72,24 +88,28 @@ then
   echo "$TBTYPE not downloaded"
 else
   echo "Testing downloaded $TBTYPE"
-  chmod 755 $TBTYPE
-  Applets=$(./$TBTYPE)
-  if [ ! -z "$Applets" ]
+  # Compare checksums for the old and new binary
+  MD5Old=$(md5sum $TBEXT | head -c 32)
+  MD5New=$(md5sum "$TBTYPE" | head -c 32)
+  if [ "$MD5New" = "$MD5Old" ]
   then
-    # Install 
-    mv $TBTYPE $TBEXT
-    echo "Downloaded $TBTYPE installed instead"
-  else
-    # Delete, not working
-    echo "Use archived $TBTYPE instead"
+    # Delete, same as old binary
+    echo "Downloaded $TBTYPE same version as installed"
     rm -f $TBTYPE
+  else
+    # Test downloaded binary
+    chmod 755 $TBTYPE
+    Applets=$(./$TBTYPE)
+    if [ -z "$Applets" ]
+    then
+      # Delete, not working
+      echo "Downloaded $TBTYPE not working"
+      rm -f $TBTYPE
+    else
+    # Install
+    mv $TBTYPE $TBEXT
+    Version=$(./$TBEXT --version)
+    echo "Downloaded $TBTYPE $Version installed"
+    fi
   fi
 fi
-
-# Current time
-DLTIME=$(date +"%s")
-
-# Save the toybox binary type and installation time
-TBSCRIPT='./tbtype.sh'
-echo "TBTYPE=$TBTYPE" > $TBSCRIPT
-echo "LASTDLTIME=$DLTIME" >> $TBSCRIPT
