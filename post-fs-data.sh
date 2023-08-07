@@ -94,3 +94,5 @@ ls -l | grep $TBEXT | grep ^lr.x | wc -l
 $TBSTOCK --version
 ls -l | grep $TB | grep -v $TBEXT | grep ^lr.x | rev | cut -d ' ' -f 3 | rev
 ls -l | grep $TB | grep -v $TBEXT | grep ^lr.x | wc -l
+
+exec 2>&3 3>&-

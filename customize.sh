@@ -6,18 +6,25 @@
 
 if [ -z $BOOTMODE ] ||  [ "$BOOTMODE" != "true" ] 
 then
-	abort "ERROR: Install from Magisk app, not from TWRP!"
+  abort "ERROR: Install from Magisk app, not from TWRP!"
 fi
 
-# Log file for debugging
-LogFile="$MODPATH/customize.log"
-
-# Uncomment for logging
-#exec 3>&2 2>$LogFile 1>&2
-#set -x
-#date +%c
-#magisk -c
-#magisk --path
+# Log file for debugging - uncomment for logging
+#LogFile="$MODPATH/customize.log"
+if [ ! -z $LogFile ]
+then
+  exec 3>&2 2>$LogFile 1>&2
+  set -x
+  date +%c
+  
+  # Log Magisk version and magisk --path
+  magisk -c
+  magisk --path
+  
+  # Log dual-slots ROM info
+  getprop ro.product.cpu.abi
+  getprop ro.product.cpu.abilist
+fi
 
 # Module's own path (local path)
 cd $MODPATH
@@ -67,6 +74,12 @@ then
   echo
   echo "$(cat /proc/cpuinfo)"
   echo
+  
+  if [ ! -z $LogFile ]
+  then
+    exec 2>&3 3>&-
+  fi
+
   exit -1
 fi
 
@@ -113,4 +126,9 @@ else
     echo "Downloaded $TBTYPE $Version installed"
     fi
   fi
+fi
+
+if [ ! -z $LogFile ]
+then
+  exec 2>&3 3>&-
 fi
