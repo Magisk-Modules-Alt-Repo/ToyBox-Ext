@@ -3,5 +3,5 @@ name=ToyBox (Ext)
 version=1.0.9
 versionCode=109
 author=zgfg @ xda
-description=Install (additional) toybox applets. SUPPORTED: ARMv7 and higher, all Android versions
+description=Additional toybox applets. SUPPORTED: ARMv7 and higher, all Android versions
 updateJson=https://raw.githubusercontent.com/Magisk-Modules-Alt-Repo/ToyBox-Ext/main/update.json
