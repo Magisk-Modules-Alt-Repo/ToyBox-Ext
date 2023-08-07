@@ -9,7 +9,7 @@ MODDIR=${0%/*}
 
 # Log file for debugging
 LogFile="$MODDIR/service.log"
-exec 3>&2 2>$LogFile 1>&2
+exec 3>&1 4>&2 2>$LogFile 1>&2
 set -x
 date +%c
 
@@ -116,11 +116,12 @@ then
 
       # Notify user to reboot
       Version=$(./$TBTYPE --version)
-      exec 2>&3 3>&-
+      exec 1>&3 2>&4
       su -lp 2000 -c "cmd notification post -S bigtext -t 'ToyBox-Ext Module' 'Tag' 'Reboot to update ToyBox binary to $Version'" 1>/dev/null
-	  exec 3>&2 2>>$LogFile 1>&2
+      exec 3>&1 4>&2 2>>$LogFile 1>&2
     fi
   fi
 fi
 
-exec 2>&3 3>&-
+set +x
+exec 1>&3 2>&4 3>&- 4>&-

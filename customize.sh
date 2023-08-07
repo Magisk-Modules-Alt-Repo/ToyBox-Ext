@@ -13,7 +13,7 @@ fi
 #LogFile="$MODPATH/customize.log"
 if [ ! -z $LogFile ]
 then
-  exec 3>&2 2>$LogFile 1>&2
+  exec 3>&1 4>&2 2>$LogFile 1>&2
   set -x
   date +%c
   
@@ -74,12 +74,6 @@ then
   echo
   echo "$(cat /proc/cpuinfo)"
   echo
-  
-  if [ ! -z $LogFile ]
-  then
-    exec 2>&3 3>&-
-  fi
-
   exit -1
 fi
 
@@ -130,5 +124,6 @@ fi
 
 if [ ! -z $LogFile ]
 then
-  exec 2>&3 3>&-
+  set +x
+  exec 1>&3 2>&4 3>&- 4>&-
 fi
