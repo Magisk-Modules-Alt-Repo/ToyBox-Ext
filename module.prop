@@ -3,5 +3,5 @@ name=ToyBox (Ext)
 version=1.0.9
 versionCode=109
 author=zgfg @ xda
-description=Install (additional) toybox applets. SUPPORTED: ARMv7 and higher 
+description=Install (additional) toybox applets. SUPPORTED: ARMv7 and higher, all Android versions
 updateJson=https://raw.githubusercontent.com/zgfg/ToyBox-Ext/main/update.json

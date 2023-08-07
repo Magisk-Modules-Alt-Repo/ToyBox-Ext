@@ -9,7 +9,7 @@ MODDIR=${0%/*}
 
 # Log file for debugging
 LogFile="$MODDIR/post-fs-data.log"
-exec 2>$LogFile 1>&2
+exec 3>&2 2>$LogFile 1>&2
 set -x
 
 # Log Magisk version and magisk --path

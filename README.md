@@ -5,7 +5,7 @@ Systemless Magisk module
 to install (additional) ToyBox applets, using **ARMv7 or higher** binaries from:
 https://github.com/landley/toybox
 
-**Supported**: ARMv7 and higher 
+**Supported**: ARMv7 and higher, all Android versions
 
 ##### TEST
 

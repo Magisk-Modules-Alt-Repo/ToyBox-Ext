@@ -7,7 +7,7 @@
 # Module's own path (local path)
 MODDIR=${0%/*}
 
-# Log for debugging
+# Log file for debugging
 LogFile="$MODDIR/service.log"
 exec 3>&2 2>$LogFile 1>&2
 set -x
@@ -17,7 +17,7 @@ date +%c
 magisk -c
 magisk --path
 
-# Log ROM A/B info
+# Log dual-slots ROM info
 getprop ro.product.cpu.abi
 getprop ro.product.cpu.abilist
 
@@ -71,6 +71,7 @@ PASSEDTIME=$(($DLTIME - $LASTDLTIME))
 
 # Waiting time between downloads (15 days)
 WAITTIME=$((15 * 24 * 3600))
+#WAITTIME=$((15  * 60))  # 15 min, for testing
 
 # If waiting time passed, download the latest binary again
 if [ ! -z $TBTYPE ] && [ $PASSEDTIME -gt $WAITTIME ]
@@ -91,7 +92,7 @@ fi
 if [ ! -z $TBTYPE ] && [ -f $TBTYPE ]
 then
   # Compare checksums for the old and new binary
-  MD5Old=$(md5sum toybox-ext | head -c 32)
+  MD5Old=$(md5sum $TBEXT | head -c 32)
   MD5New=$(md5sum "$TBTYPE" | head -c 32)
   if [ "$MD5New" = "$MD5Old" ]
   then
